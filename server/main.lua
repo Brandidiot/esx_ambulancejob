@@ -346,3 +346,58 @@ AddEventHandler('esx_ambulancejob:pulloutVehicle', function(target)
 		print(('esx_ambulancejob: %s attempted to drag out from vehicle (not ems)!'):format(xPlayer.identifier))
 	end
 end)
+
+RegisterServerEvent('esx_ambulancejob:onduty')
+AddEventHandler('esx_ambulancejob:onduty', function(job)
+	local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+    local job = xPlayer.job.name
+    local grade = xPlayer.job.grade
+    local label = xPlayer.job.label
+
+    local name = getIdentity(_source)
+	fal = name.firstname .. " " .. name.lastname
+
+	if job == 'offambulance' then
+		xPlayer.setJob('ambulance', grade)
+        TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
+	end
+end)
+
+RegisterServerEvent('esx_ambulancejob:offduty')
+AddEventHandler('esx_ambulancejob:offduty', function(job)
+	local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+    local job = xPlayer.job.name
+    local grade = xPlayer.job.grade
+    local label = xPlayer.job.label
+
+    local name = getIdentity(_source)
+	fal = name.firstname .. " " .. name.lastname
+
+	if job == 'ambulance' then
+		xPlayer.setJob('off' ..job, grade)
+        TriggerClientEvent('esx:showNotification', _source, _U('offduty'))
+	end
+
+end)
+
+function getIdentity(source)
+	local identifier = GetPlayerIdentifiers(source)[1]
+	local result = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
+	if result[1] ~= nil then
+		local identity = result[1]
+
+		return {
+			identifier = identity['identifier'],
+			firstname = identity['firstname'],
+			lastname = identity['lastname'],
+			dateofbirth = identity['dateofbirth'],
+			sex = identity['sex'],
+			height = identity['height']
+			
+		}
+	else
+		return nil
+	end
+end

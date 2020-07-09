@@ -3,6 +3,8 @@ Locales['en'] = {
   ['cloakroom'] = 'locker Room',
   ['ems_clothes_civil'] = 'civilian Clothes',
   ['ems_clothes_ems'] = 'EMS Clothes',
+  ['onduty'] = 'You went  ~g~on duty.',
+	['offduty'] = 'You went ~r~off duty.',
   -- Vehicles
   ['ambulance'] = 'ambulance',
   ['helicopter_prompt'] = 'press ~INPUT_CONTEXT~ to access the ~y~Helicopter Actions~s~.',

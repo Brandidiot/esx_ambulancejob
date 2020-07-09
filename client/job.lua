@@ -487,27 +487,28 @@ function OpenCloakroomMenu()
 			{label = _U('ems_clothes_civil'), value = 'citizen_wear'},
 			{label = _U('ems_clothes_ems'), value = 'ambulance_wear'},
 	}}, function(data, menu)
-		if data.current.value == 'citizen_wear' then
+		if data.current.value == 'citizen_wear' and isOnDuty then
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				TriggerEvent('skinchanger:loadSkin', skin)
-				isOnDuty = false
 
 				for playerId,v in pairs(deadPlayerBlips) do
 					RemoveBlip(v)
 					deadPlayerBlips[playerId] = nil
 				end
 			end)
-		elseif data.current.value == 'ambulance_wear' then
+			TriggerServerEvent('esx_ambulancejob:offduty')
+			isOnDuty = false
+		elseif data.current.value == 'ambulance_wear' and not isOnDuty then
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				if skin.sex == 0 then
 					TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_male)
 				else
 					TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_female)
 				end
-
 				isOnDuty = true
 				TriggerEvent('esx_ambulancejob:setDeadPlayers', deadPlayers)
 			end)
+			TriggerServerEvent('esx_ambulancejob:onduty')
 		end
 
 		menu.close()

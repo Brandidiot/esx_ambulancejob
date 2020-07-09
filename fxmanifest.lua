@@ -41,5 +41,6 @@ dependencies {
 	'es_extended',
 	'esx_skin',
 	'esx_vehicleshop',
-	'medSystem'
+	'medSystem',
+	'esx_addons_gcphone'
 }
