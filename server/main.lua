@@ -395,9 +395,20 @@ function getIdentity(source)
 			dateofbirth = identity['dateofbirth'],
 			sex = identity['sex'],
 			height = identity['height']
-			
+		
 		}
 	else
 		return nil
 	end
 end
+
+AddEventHandler('esx:playerDropped', function(playerID, reason)
+	local xPlayer = ESX.GetPlayerFromId(playerID)
+    local job = xPlayer.job.name
+	local grade = xPlayer.job.grade
+
+	if job == 'ambulance' then
+		xPlayer.setJob('off' ..job, grade)
+        --TriggerClientEvent('esx:showNotification', _source, _U('offduty'))
+	end
+end)
