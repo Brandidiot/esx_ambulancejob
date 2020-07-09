@@ -86,12 +86,13 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 73, true) -- Disable clearing animation
 			DisableControlAction(2, 199, true) -- Disable pause screen
 			DisplayRadar(false)
-			EnableControlAction(0, Keys['G'], true)
-			EnableControlAction(0, Keys['T'], true)
-			EnableControlAction(0, Keys['E'], true)
+			EnableControlAction(0, 47, true)
+			EnableControlAction(0, 245, true)
+			EnableControlAction(0, 350, true)
+			EnableControlAction(0, 351, true)
 			--DisableControlAction(0,249,true) -- disable N stop speaking
-			DisableControlAction(0, Keys['LEFTSHIFT'],true) -- disable push vehicle
-			DisableControlAction(0, Keys['W'],true) -- disable push vehicle
+			DisableControlAction(0, 352,true) -- disable push vehicle
+			DisableControlAction(0, 32,true) -- disable push vehicle
 		else
 			Citizen.Wait(500)
 			FreezeEntityPosition(playerPed, false)
@@ -184,10 +185,10 @@ function SendDistressSignal()
 
 	ESX.ShowNotification(_U('distress_sent'))
 	TriggerServerEvent('esx_ambulancejob:onPlayerDistress')
-	TriggerServerEvent('esx_addons_gcphone:startCall', 'ambulance', _U('distress_message'), coords, {
+	--TriggerServerEvent('esx_addons_gcphone:startCall', 'ambulance', _U('distress_message'), coords, {
 
-		PlayerCoords = { x = coords.x, y = coords.y, z = coords.z },
-	})
+		--PlayerCoords = { x = coords.x, y = coords.y, z = coords.z },
+	--})
 end
 
 function DrawGenericTextThisFrame()

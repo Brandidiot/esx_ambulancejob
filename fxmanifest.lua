@@ -42,5 +42,6 @@ dependencies {
 	'esx_skin',
 	'esx_vehicleshop',
 	'medSystem',
-	'esx_addons_gcphone'
+	'esx_addons_gcphone',
+	'InteractSound'
 }

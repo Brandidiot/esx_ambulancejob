@@ -1,6 +1,6 @@
 local CurrentAction, CurrentActionMsg, CurrentActionData, dragStatus = nil, '', {}, {}
 local HasAlreadyEnteredMarker, LastHospital, LastPart, LastPartNum
-local isBusy, deadPlayers, deadPlayerBlips, isOnDuty = false, {}, {}, false
+local isBusy, deadPlayers, deadPlayerBlips, isOnDuty, EMSonDuty = false, {}, {}, false, {}
 isInShopMenu = false
 
 dragStatus.isDragged = false
@@ -163,6 +163,11 @@ function revivePlayer(closestPlayer)
 
 				TriggerServerEvent('esx_ambulancejob:removeItem', 'medikit')
 				TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
+
+				for playerId,v in pairs(deadPlayerBlips) do
+					RemoveBlip(v)
+					deadPlayerBlips[playerId] = nil
+				end
 			else
 				ESX.ShowNotification(_U('player_not_unconscious'))
 			end
@@ -568,6 +573,7 @@ AddEventHandler('esx_ambulancejob:setDeadPlayers', function(_deadPlayers)
 	deadPlayers = _deadPlayers
 
 	if isOnDuty then
+
 		for playerId,v in pairs(deadPlayerBlips) do
 			RemoveBlip(v)
 			deadPlayerBlips[playerId] = nil
@@ -589,6 +595,9 @@ AddEventHandler('esx_ambulancejob:setDeadPlayers', function(_deadPlayers)
 				EndTextCommandSetBlipName(blip)
 
 				deadPlayerBlips[playerId] = blip
+
+				TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 5, 'pager', 0.2)
+				exports['mythic_notify']:SendAlert('inform', 'Someone is unconcious and needs medical assistance!', 10000, { ['background-color'] = '#862323', ['color'] = '#ffffff' })
 			end
 		end
 	end
