@@ -2,7 +2,7 @@ Config                            = {}
 
 Config.DrawDistance               = 100.0
 
-Config.Marker                     = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 255, g = 0, b = 0, a = 100, rotate = false}
+Config.Marker                     = {type = 20, x = 1.5, y = 1.5, z = .5, r = 255, g = 0, b = 0, a = 100, rotate = true}
 
 Config.ReviveReward               = 700  -- revive reward, set to 0 if you don't want it enabled
 Config.AntiCombatLog              = true -- enable anti-combat logging?
@@ -41,7 +41,7 @@ Config.Hospitals =
 
 		AmbulanceActions =
 		{
-			vector3(375.62, -1434.55, 32.51)
+			vector3(375.62, -1434.55, 32)
 		},
 
 		Pharmacies =
