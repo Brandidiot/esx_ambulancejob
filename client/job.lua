@@ -196,7 +196,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 
-		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
+		if ESX.PlayerData.job and (ESX.PlayerData.job.name == 'ambulance' or ESX.PlayerData.job.name == 'offambulance') then
 			local playerCoords = GetEntityCoords(PlayerPedId())
 			local letSleep, isInMarker, hasExited = true, false, false
 			local currentHospital, currentPart, currentPartNum
@@ -335,15 +335,15 @@ AddEventHandler('esx_ambulancejob:hasEnteredMarker', function(hospital, part, pa
 		CurrentAction = part
 		CurrentActionMsg = _U('actions_prompt')
 		CurrentActionData = {}
-	elseif part == 'Pharmacy' then
+	elseif part == 'Pharmacy' and isOnDuty then
 		CurrentAction = part
 		CurrentActionMsg = _U('open_pharmacy')
 		CurrentActionData = {}
-	elseif part == 'Vehicles' then
+	elseif part == 'Vehicles' and isOnDuty then
 		CurrentAction = part
 		CurrentActionMsg = _U('garage_prompt')
 		CurrentActionData = {hospital = hospital, partNum = partNum}
-	elseif part == 'Helicopters' then
+	elseif part == 'Helicopters' and isOnDuty then
 		CurrentAction = part
 		CurrentActionMsg = _U('helicopter_prompt')
 		CurrentActionData = {hospital = hospital, partNum = partNum}
