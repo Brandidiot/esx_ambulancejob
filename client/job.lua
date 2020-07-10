@@ -596,7 +596,7 @@ AddEventHandler('esx_ambulancejob:setDeadPlayers', function(_deadPlayers)
 
 				deadPlayerBlips[playerId] = blip
 
-				TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 5, 'pager', 0.2)
+				TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3, 'pager', 0.2)
 				exports['mythic_notify']:SendAlert('inform', 'Someone is unconcious and needs medical assistance!', 10000, { ['background-color'] = '#862323', ['color'] = '#ffffff' })
 			end
 		end
