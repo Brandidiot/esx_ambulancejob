@@ -360,14 +360,15 @@ AddEventHandler('esx_ambulancejob:onduty', function(job)
 
 	if job == 'offambulance' then
 		xPlayer.setJob('ambulance', grade)
-        TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
+		TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
+		TriggerEvent("eblips:add", {name = fal, src = _source, color = 1})
 	end
 end)
 
 RegisterServerEvent('esx_ambulancejob:offduty')
 AddEventHandler('esx_ambulancejob:offduty', function(job)
 	local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
+	local xPlayer = ESX.GetPlayerFromId(_source)
     local job = xPlayer.job.name
     local grade = xPlayer.job.grade
     local label = xPlayer.job.label
@@ -377,7 +378,8 @@ AddEventHandler('esx_ambulancejob:offduty', function(job)
 
 	if job == 'ambulance' then
 		xPlayer.setJob('off' ..job, grade)
-        TriggerClientEvent('esx:showNotification', _source, _U('offduty'))
+		TriggerClientEvent('esx:showNotification', _source, _U('offduty'))
+		TriggerEvent("eblips:remove", _source)
 	end
 
 end)
